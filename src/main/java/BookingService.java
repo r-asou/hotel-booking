@@ -53,7 +53,9 @@ public class BookingService {
      */
     public boolean storeBooking(AddBookingDTO dto) {
         // 判断入参是否为空
-        if (dto == null) return false;
+        if (dto == null || dto.getDate() == null || dto.getGuestName() == null || dto.getRoomNumber() == null) {
+            throw new RuntimeException("参数非法");
+        }
         // 判断房间号是否存在
         Integer roomNumber = dto.getRoomNumber();
         if (!availableRoom.contains(dto.getDate())) {

@@ -1,4 +1,4 @@
-package dto;
+package com.solution.dto;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
  * @date 2022/1/16$
  */
 public class GuestBookingsRespDTO implements Serializable {
-
+    private static final long serialVersionUID = 1L;
     /**
      * 客户名
      */

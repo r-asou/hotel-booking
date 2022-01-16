@@ -1,4 +1,4 @@
-package dto;
+package com.solution.dto;
 
 import java.io.Serializable;
 
@@ -6,8 +6,8 @@ import java.io.Serializable;
  * @author JC Liu
  * @date 2022/1/16$
  */
-public class AddBookingDTO implements Serializable {
-
+public class BookingRecordDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * 客户名
      */
@@ -45,10 +45,10 @@ public class AddBookingDTO implements Serializable {
         this.date = date;
     }
 
-    public AddBookingDTO() {
+    public BookingRecordDTO() {
     }
 
-    public AddBookingDTO(String guestName, Integer roomNumber, String date) {
+    public BookingRecordDTO(String guestName, Integer roomNumber, String date) {
         this.guestName = guestName;
         this.roomNumber = roomNumber;
         this.date = date;

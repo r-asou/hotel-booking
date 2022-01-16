@@ -1,10 +1,14 @@
-package entity;
+package com.solution.dto;
+
+import java.io.Serializable;
 
 /**
  * @author JC Liu
  * @date 2022/1/16$
  */
-public class Room {
+public class RoomDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 房间号
@@ -19,10 +23,10 @@ public class Room {
         this.roomNumber = roomNumber;
     }
 
-    public Room() {
+    public RoomDTO(Integer roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
-    public Room(Integer roomId) {
-        this.roomNumber = roomId;
+    public RoomDTO() {
     }
 }

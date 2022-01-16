@@ -1,13 +1,15 @@
-package dto;
+package com.solution.entity;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author JC Liu
- * @date 2022/1/16$
+ * @date 2022/1/16
  */
-public class BookingRecordDTO implements Serializable {
-
+public class BookingRecord {
+    // 保存预订记录
+    private static volatile List<BookingRecord> bookingRecordList = new ArrayList<>();
     /**
      * 客户名
      */
@@ -37,6 +39,10 @@ public class BookingRecordDTO implements Serializable {
         this.roomNumber = roomNumber;
     }
 
+
+    public BookingRecord() {
+    }
+
     public String getDate() {
         return date;
     }
@@ -45,12 +51,13 @@ public class BookingRecordDTO implements Serializable {
         this.date = date;
     }
 
-    public BookingRecordDTO() {
-    }
-
-    public BookingRecordDTO(String guestName, Integer roomNumber, String date) {
+    public BookingRecord(String guestName, Integer roomNumber, String date) {
         this.guestName = guestName;
         this.roomNumber = roomNumber;
         this.date = date;
+    }
+
+    public static List<BookingRecord> getBookingRecordList() {
+        return bookingRecordList;
     }
 }

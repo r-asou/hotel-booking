@@ -1,11 +1,14 @@
-package entity;
+package com.solution.dto;
+
+import java.io.Serializable;
 
 /**
  * @author JC Liu
  * @date 2022/1/16$
  */
-public class BookingRecord {
+public class AddBookingDTO implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     /**
      * 客户名
      */
@@ -35,10 +38,6 @@ public class BookingRecord {
         this.roomNumber = roomNumber;
     }
 
-
-    public BookingRecord() {
-    }
-
     public String getDate() {
         return date;
     }
@@ -47,7 +46,10 @@ public class BookingRecord {
         this.date = date;
     }
 
-    public BookingRecord(String guestName, Integer roomNumber, String date) {
+    public AddBookingDTO() {
+    }
+
+    public AddBookingDTO(String guestName, Integer roomNumber, String date) {
         this.guestName = guestName;
         this.roomNumber = roomNumber;
         this.date = date;

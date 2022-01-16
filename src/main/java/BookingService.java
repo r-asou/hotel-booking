@@ -5,6 +5,7 @@ import dto.GuestBookingsRespDTO;
 import dto.RoomDTO;
 import entity.BookingRecord;
 import entity.Room;
+import utils.ConvertUtils;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -61,7 +62,7 @@ public class BookingService {
         // 判断今天该房间是否可以预订
         Set<Integer> availableRoomInToday = availableRoom.get(dto.getDate()).stream()
                 .map(Room::getRoomNumber)
-                .filter(ele->ele.equals(dto.getRoomNumber())).collect(Collectors.toSet());
+                .filter(ele->ele.equals(roomNumber)).collect(Collectors.toSet());
         if (availableRoomInToday.size() == 0) return false;
         // 判断是否已经定过房间
         long alreadyBookCount = bookingRecordList.stream()
@@ -70,13 +71,13 @@ public class BookingService {
         if (alreadyBookCount == 0) {
             BookingRecord record = new BookingRecord();
             record.setGuestName(dto.getGuestName());
-            record.setRoomNumber(dto.getRoomNumber());
+            record.setRoomNumber(roomNumber);
             record.setDate(dto.getDate());
             bookingRecordList.add(record);
             //移除可订房间
             List<Room> available = availableRoom.get(dto.getDate())
                     .stream()
-                    .filter(r -> !r.getRoomNumber().equals(dto.getRoomNumber()))
+                    .filter(r -> !r.getRoomNumber().equals(roomNumber))
                     .collect(Collectors.toList());
             availableRoom.put(dto.getDate(), available);
             return true;

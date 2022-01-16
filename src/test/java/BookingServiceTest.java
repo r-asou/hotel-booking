@@ -131,8 +131,9 @@ public class BookingServiceTest {
             boolean result = false;
             try {
                 result = bookingService.storeBooking(guestA);
+                System.out.println("T1:" + result);
             } catch (BusinessException e) {
-                System.out.println(e);
+
             }
             Assert.assertTrue(result);
         });
@@ -140,8 +141,9 @@ public class BookingServiceTest {
             boolean result = false;
             try {
                 result = bookingService.storeBooking(guestB);
+                System.out.println("T2:" + result);
             } catch (BusinessException e) {
-                System.out.println(e);
+
             }
             Assert.assertTrue(result);
         });
@@ -149,8 +151,9 @@ public class BookingServiceTest {
             boolean result = false;
             try {
                 result = bookingService.storeBooking(guestC);
+                System.out.println("T3:" + result);
             } catch (BusinessException e) {
-                System.out.println(e);
+
             }
             Assert.assertTrue(result);
         });
@@ -158,8 +161,9 @@ public class BookingServiceTest {
             boolean result = false;
             try {
                 result = bookingService.storeBooking(guestD);
+                System.out.println("T4:" + result);
             } catch (BusinessException e) {
-                System.out.println(e);
+
             }
             Assert.assertTrue(result);
         });

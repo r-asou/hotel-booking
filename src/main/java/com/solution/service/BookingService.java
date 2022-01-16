@@ -41,7 +41,7 @@ public class BookingService {
             Integer roomNumber = dto.getRoomNumber();
             List<RoomDTO> availableRoomByDate = roomService.getAvailableRoomByDate(dto.getDate());// 获取当天的可定房间
             long count = availableRoomByDate.stream().filter(e -> e.getRoomNumber().equals(roomNumber)).count();
-            if (count == 0) throw new BusinessException("该房间已被预定");
+            if (count == 0) return false;
 
             // 判断是否已经定过房间
             long alreadyBookCount = BookingRecord.getBookingRecordList().stream()

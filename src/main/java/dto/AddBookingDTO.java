@@ -8,8 +8,17 @@ import java.io.Serializable;
  */
 public class AddBookingDTO implements Serializable {
 
+    /**
+     * 客户名
+     */
     private String guestName;
+    /**
+     * 房间号
+     */
     private Integer roomNumber;
+    /**
+     * 预定日期
+     */
     private String date;
 
     public String getGuestName() {

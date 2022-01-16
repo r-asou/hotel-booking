@@ -6,6 +6,9 @@ package entity;
  */
 public class Room {
 
+    /**
+     * 房间号
+     */
     private Integer roomNumber;
 
     public Integer getRoomNumber() {

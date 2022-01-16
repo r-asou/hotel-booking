@@ -7,7 +7,9 @@ import java.io.Serializable;
  * @date 2022/1/16$
  */
 public class RoomDTO implements Serializable {
-
+    /**
+     * 房间号
+     */
     private Integer roomNumber;
 
     public Integer getRoomNumber() {

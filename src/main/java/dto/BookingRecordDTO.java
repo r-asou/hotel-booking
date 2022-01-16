@@ -1,7 +1,6 @@
 package dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author JC Liu
@@ -9,8 +8,17 @@ import java.util.Date;
  */
 public class BookingRecordDTO implements Serializable {
 
+    /**
+     * 客户名
+     */
     private String guestName;
+    /**
+     * 房间号
+     */
     private Integer roomNumber;
+    /**
+     * 预定日期
+     */
     private String date;
 
     public String getGuestName() {

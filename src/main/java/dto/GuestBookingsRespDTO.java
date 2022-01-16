@@ -9,7 +9,13 @@ import java.util.List;
  */
 public class GuestBookingsRespDTO implements Serializable {
 
+    /**
+     * 客户名
+     */
     private String guestName;
+    /**
+     * 该客户的所有预订记录
+     */
     private List<BookingRecordDTO> bookingRecordDtoList;
 
     public String getGuestName() {

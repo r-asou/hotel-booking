@@ -1,6 +1,5 @@
 package com.solution.service;
 
-import com.solution.dto.AddBookingDTO;
 import com.solution.dto.BookingRecordDTO;
 import com.solution.dto.GuestBookingsRespDTO;
 import com.solution.dto.RoomDTO;
@@ -32,7 +31,7 @@ public class BookingService {
      * @param dto dto.BookingDTO
      * @return 订房是否成功
      */
-    public boolean storeBooking(AddBookingDTO dto) throws BusinessException {
+    public boolean storeBooking(BookingRecordDTO dto) throws BusinessException {
         // 判断入参是否为空
         if (dto == null || dto.getDate() == null || dto.getGuestName() == null || dto.getRoomNumber() == null) {
             throw new BusinessException("参数非法");

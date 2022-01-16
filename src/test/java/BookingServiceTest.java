@@ -1,4 +1,3 @@
-import com.solution.dto.AddBookingDTO;
 import com.solution.dto.BookingRecordDTO;
 import com.solution.dto.GuestBookingsRespDTO;
 import com.solution.dto.RoomDTO;
@@ -44,7 +43,7 @@ public class BookingServiceTest {
 
     @Test
     public void testStoreBooking() throws BusinessException {
-        AddBookingDTO guestA = new AddBookingDTO();
+        BookingRecordDTO guestA = new BookingRecordDTO();
         guestA.setGuestName("GuestA");
         guestA.setRoomNumber(30);
         guestA.setDate("2021-01-01");
@@ -75,7 +74,7 @@ public class BookingServiceTest {
         GuestBookingsRespDTO guest = bookingService.findBookingRecordByGuestName("GuestA");
         Assert.assertTrue(guest.getBookingRecordDtoList().isEmpty());
 
-        AddBookingDTO guestA = new AddBookingDTO();
+        BookingRecordDTO guestA = new BookingRecordDTO();
         guestA.setGuestName("GuestA");
         guestA.setRoomNumber(30);
         guestA.setDate("2021-01-01");
@@ -90,7 +89,7 @@ public class BookingServiceTest {
 
     @Test
     public void testRepeatedBooking() throws BusinessException {
-        AddBookingDTO guestA = new AddBookingDTO();
+        BookingRecordDTO guestA = new BookingRecordDTO();
         guestA.setGuestName("GuestA");
         guestA.setRoomNumber(30);
         guestA.setDate("2021-01-01");
@@ -108,13 +107,13 @@ public class BookingServiceTest {
 
     @Test
     public void testBookingSameRoomByDifferentGuest() throws BusinessException {
-        AddBookingDTO guestA = new AddBookingDTO();
+        BookingRecordDTO guestA = new BookingRecordDTO();
         guestA.setGuestName("GuestA");
         guestA.setRoomNumber(30);
         guestA.setDate("2021-01-01");
         boolean bookingResult = bookingService.storeBooking(guestA);
         Assert.assertTrue(bookingResult);
-        AddBookingDTO guestB = new AddBookingDTO();
+        BookingRecordDTO guestB = new BookingRecordDTO();
         guestB.setGuestName("GuestB");
         guestB.setRoomNumber(30);
         guestB.setDate("2021-01-01");
@@ -122,11 +121,11 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void testMultiThread() throws BusinessException, InterruptedException {
-        AddBookingDTO guestA = random();
-        AddBookingDTO guestB = random();
-        AddBookingDTO guestC = random();
-        AddBookingDTO guestD = random();
+    public void testMultiThread() throws InterruptedException {
+        BookingRecordDTO guestA = random();
+        BookingRecordDTO guestB = random();
+        BookingRecordDTO guestC = random();
+        BookingRecordDTO guestD = random();
 
         Thread t1 = new Thread(() -> {
             boolean result = false;
@@ -175,8 +174,8 @@ public class BookingServiceTest {
         t4.join();
     }
 
-    public AddBookingDTO random() {
-        AddBookingDTO guest = new AddBookingDTO();
+    public BookingRecordDTO random() {
+        BookingRecordDTO guest = new BookingRecordDTO();
         guest.setGuestName(UUID.randomUUID().toString());
         guest.setRoomNumber(30);
         guest.setDate("2021-01-01");

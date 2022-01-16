@@ -1,6 +1,5 @@
 package com.solution.utils;
 
-import com.solution.dto.AddBookingDTO;
 import com.solution.dto.BookingRecordDTO;
 import com.solution.entity.BookingRecord;
 
@@ -23,7 +22,7 @@ public interface ConvertUtils {
         return recordDTO;
     };
 
-    Function<AddBookingDTO, BookingRecord> convertDtoToBookingRecord = bookingRecordDTO -> {
+    Function<BookingRecordDTO, BookingRecord> convertDtoToBookingRecord = bookingRecordDTO -> {
         BookingRecord record = new BookingRecord();
         record.setRoomNumber(bookingRecordDTO.getRoomNumber());
         record.setGuestName(bookingRecordDTO.getGuestName());

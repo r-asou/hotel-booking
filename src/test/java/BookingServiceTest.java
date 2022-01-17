@@ -15,7 +15,7 @@ import java.util.UUID;
 
 /**
  * @author JC Liu
- * @date 2022/1/16$
+ * @date 2022/1/16
  */
 public class BookingServiceTest {
 
@@ -96,7 +96,7 @@ public class BookingServiceTest {
         Assert.assertTrue(bookingResult);
         guestA.setRoomNumber(10);
         guestA.setDate("2021-01-01");
-        Assert.assertThrows(BusinessException.class, () -> bookingService.storeBooking(guestA));
+        Assert.assertTrue(bookingService.storeBooking(guestA));
     }
 
     @Test

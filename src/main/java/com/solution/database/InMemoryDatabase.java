@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author JC Liu
@@ -16,7 +17,7 @@ public class InMemoryDatabase {
     // 只保存每天可定房间，实际只操作availableRoom容器，可以根据要求进行实时更新
     private static final Map<String, List<Room>> availableRoom = new ConcurrentHashMap<>();
     // 保存预订记录
-    private static volatile List<BookingRecord> bookingRecordList = new ArrayList<>();
+    private static final List<BookingRecord> bookingRecordList = new CopyOnWriteArrayList<>();
 
     /**
      * 配置指定日期的房间数量

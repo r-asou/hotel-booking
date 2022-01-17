@@ -3,7 +3,6 @@ package com.solution.service;
 import com.solution.database.InMemoryDatabase;
 import com.solution.dto.BookingRecordDTO;
 import com.solution.dto.GuestBookingsRespDTO;
-import com.solution.dto.RoomDTO;
 import com.solution.entity.BookingRecord;
 import com.solution.exception.BusinessException;
 import com.solution.utils.ConvertUtils;
@@ -11,6 +10,8 @@ import com.solution.utils.ConvertUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 /**
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 public class BookingService {
 
     private final RoomService roomService;
-
+    private static final Lock lock = new ReentrantLock();
     public BookingService(RoomService roomService) {
         this.roomService = roomService;
     }
@@ -36,26 +37,24 @@ public class BookingService {
         if (dto == null || dto.getDate() == null || dto.getGuestName() == null || dto.getRoomNumber() == null) {
             throw new BusinessException("参数非法");
         }
-        synchronized (InMemoryDatabase.getAvailableRoom()) {
-            // 判断房间号是否存在
-            Integer roomNumber = dto.getRoomNumber();
-            List<RoomDTO> availableRoomByDate = roomService.getAvailableRoomByDate(dto.getDate());// 获取当天的可定房间
-            long count = availableRoomByDate.stream().filter(e -> e.getRoomNumber().equals(roomNumber)).count();
-            if (count == 0) return false;
-
-            // 判断是否已经定过房间
-            long alreadyBookCount = InMemoryDatabase.getBookingRecordList().stream()
-                    .filter(r -> r.getDate().equals(dto.getDate()) && r.getGuestName().equals(dto.getGuestName()))
-                    .count();
-            if (alreadyBookCount == 0) {
-                BookingRecord record = ConvertUtils.convertDtoToBookingRecord.apply(dto);
-                InMemoryDatabase.getBookingRecordList().add(record);
-                //移除可订房间
-                roomService.updateAvailableRooms(dto.getDate(), dto.getRoomNumber());
-                return true;
-            } else {
-                throw new BusinessException("已经预订过房间了");
+        // 判断房间号是否存在
+        Integer roomNumber = dto.getRoomNumber();
+        try {
+            lock.lock();
+            long count = roomService.getAvailableRoomByDate(dto.getDate())
+                    .stream()
+                    .filter(e -> e.getRoomNumber().equals(roomNumber))
+                    .count();// 判断当天该房是否可以预订
+            if (count == 0) {
+                return false;
             }
+            BookingRecord record = ConvertUtils.convertDtoToBookingRecord.apply(dto);
+            InMemoryDatabase.getBookingRecordList().add(record);
+            //移除可订房间
+            roomService.updateAvailableRooms(dto.getDate(), dto.getRoomNumber());
+            return true;
+        } finally {
+            lock.unlock();
         }
     }
 

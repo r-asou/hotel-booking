@@ -1,10 +1,10 @@
 package com.solution.service;
 
+import com.solution.database.InMemoryDatabase;
 import com.solution.dto.BookingRecordDTO;
 import com.solution.dto.GuestBookingsRespDTO;
 import com.solution.dto.RoomDTO;
 import com.solution.entity.BookingRecord;
-import com.solution.entity.Room;
 import com.solution.exception.BusinessException;
 import com.solution.utils.ConvertUtils;
 
@@ -36,7 +36,7 @@ public class BookingService {
         if (dto == null || dto.getDate() == null || dto.getGuestName() == null || dto.getRoomNumber() == null) {
             throw new BusinessException("参数非法");
         }
-        synchronized (Room.class) {
+        synchronized (InMemoryDatabase.getAvailableRoom()) {
             // 判断房间号是否存在
             Integer roomNumber = dto.getRoomNumber();
             List<RoomDTO> availableRoomByDate = roomService.getAvailableRoomByDate(dto.getDate());// 获取当天的可定房间
@@ -44,12 +44,12 @@ public class BookingService {
             if (count == 0) return false;
 
             // 判断是否已经定过房间
-            long alreadyBookCount = BookingRecord.getBookingRecordList().stream()
+            long alreadyBookCount = InMemoryDatabase.getBookingRecordList().stream()
                     .filter(r -> r.getDate().equals(dto.getDate()) && r.getGuestName().equals(dto.getGuestName()))
                     .count();
             if (alreadyBookCount == 0) {
                 BookingRecord record = ConvertUtils.convertDtoToBookingRecord.apply(dto);
-                BookingRecord.getBookingRecordList().add(record);
+                InMemoryDatabase.getBookingRecordList().add(record);
                 //移除可订房间
                 roomService.updateAvailableRooms(dto.getDate(), dto.getRoomNumber());
                 return true;
@@ -66,7 +66,7 @@ public class BookingService {
      * @return 返回订购记录
      */
     public GuestBookingsRespDTO findBookingRecordByGuestName(String guestName) {
-        List<BookingRecord> result = BookingRecord.getBookingRecordList()
+        List<BookingRecord> result = InMemoryDatabase.getBookingRecordList()
                 .stream()
                 .filter(ele -> ele.getGuestName().equals(guestName))
                 .collect(Collectors.toList());

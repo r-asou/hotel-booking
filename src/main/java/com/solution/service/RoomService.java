@@ -1,5 +1,6 @@
 package com.solution.service;
 
+import com.solution.database.InMemoryDatabase;
 import com.solution.dto.RoomDTO;
 import com.solution.entity.Room;
 
@@ -21,8 +22,8 @@ public class RoomService {
      */
     public List<RoomDTO> getAvailableRoomByDate(String date) {
         List<RoomDTO> result = new ArrayList<>();
-        if (Room.getAvailableRoom().containsKey(date)) {
-            List<Room> rooms = Room.getAvailableRoom().get(date);
+        if (InMemoryDatabase.getAvailableRoom().containsKey(date)) {
+            List<Room> rooms = InMemoryDatabase.getAvailableRoom().get(date);
             rooms.forEach(ele -> {
                 RoomDTO roomDTO = new RoomDTO();
                 roomDTO.setRoomNumber(ele.getRoomNumber());
@@ -39,7 +40,7 @@ public class RoomService {
      * @param roomId 房间号
      */
     public void updateAvailableRooms(String date, Integer roomId) {
-        Map<String, List<Room>> availableRoom = Room.getAvailableRoom();
+        Map<String, List<Room>> availableRoom = InMemoryDatabase.getAvailableRoom();
         List<Room> rooms = availableRoom.get(date);
         for (Room room : rooms) {
             if (room.getRoomNumber().equals(roomId)) {

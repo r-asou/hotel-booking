@@ -1,8 +1,7 @@
+import com.solution.database.InMemoryDatabase;
 import com.solution.dto.BookingRecordDTO;
 import com.solution.dto.GuestBookingsRespDTO;
 import com.solution.dto.RoomDTO;
-import com.solution.entity.BookingRecord;
-import com.solution.entity.Room;
 import com.solution.exception.BusinessException;
 import com.solution.service.BookingService;
 import com.solution.service.RoomService;
@@ -28,15 +27,15 @@ public class BookingServiceTest {
     public void init() {
         roomService = new RoomService();
         bookingService = new BookingService(roomService);
-        Room.configureRoomNumber("2021-01-01", 100); // 初始化房间100
-        Room.configureRoomNumber("2021-01-02", 50); // 初始化房间100
-        Room.configureRoomNumber("2021-01-03", 10); // 初始化房间10
+        InMemoryDatabase.configureRoomNumber("2021-01-01", 100); // 初始化房间100
+        InMemoryDatabase.configureRoomNumber("2021-01-02", 50); // 初始化房间100
+        InMemoryDatabase.configureRoomNumber("2021-01-03", 10); // 初始化房间10
     }
 
     @After
     public void destroy() {
-        Room.getAvailableRoom().clear();
-        BookingRecord.getBookingRecordList().clear();
+        InMemoryDatabase.getAvailableRoom().clear();
+        InMemoryDatabase.getBookingRecordList().clear();
         roomService = null;
         bookingService = null;
     }
@@ -117,7 +116,7 @@ public class BookingServiceTest {
         guestB.setGuestName("GuestB");
         guestB.setRoomNumber(30);
         guestB.setDate("2021-01-01");
-        Assert.assertThrows(BusinessException.class, () -> bookingService.storeBooking(guestB));
+        Assert.assertFalse(bookingService.storeBooking(guestB));
     }
 
     @Test
@@ -133,7 +132,7 @@ public class BookingServiceTest {
                 result = bookingService.storeBooking(guestA);
                 System.out.println("T1:" + result);
             } catch (BusinessException e) {
-
+                e.printStackTrace();
             }
             Assert.assertTrue(result);
         });
@@ -143,7 +142,7 @@ public class BookingServiceTest {
                 result = bookingService.storeBooking(guestB);
                 System.out.println("T2:" + result);
             } catch (BusinessException e) {
-
+                e.printStackTrace();
             }
             Assert.assertTrue(result);
         });
@@ -153,7 +152,7 @@ public class BookingServiceTest {
                 result = bookingService.storeBooking(guestC);
                 System.out.println("T3:" + result);
             } catch (BusinessException e) {
-
+                e.printStackTrace();
             }
             Assert.assertTrue(result);
         });
@@ -163,7 +162,7 @@ public class BookingServiceTest {
                 result = bookingService.storeBooking(guestD);
                 System.out.println("T4:" + result);
             } catch (BusinessException e) {
-
+                e.printStackTrace();
             }
             Assert.assertTrue(result);
         });

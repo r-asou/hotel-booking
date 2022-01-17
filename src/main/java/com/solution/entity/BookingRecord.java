@@ -1,15 +1,11 @@
 package com.solution.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author JC Liu
  * @date 2022/1/16
  */
 public class BookingRecord {
-    // 保存预订记录
-    private static volatile List<BookingRecord> bookingRecordList = new ArrayList<>();
+
     /**
      * 客户名
      */
@@ -55,9 +51,5 @@ public class BookingRecord {
         this.guestName = guestName;
         this.roomNumber = roomNumber;
         this.date = date;
-    }
-
-    public static List<BookingRecord> getBookingRecordList() {
-        return bookingRecordList;
     }
 }

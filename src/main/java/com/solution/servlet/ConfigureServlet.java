@@ -23,6 +23,13 @@ public class ConfigureServlet extends HttpServlet {
 
     }
 
+    /**
+     * 配置指定日期可预订的房间
+     *
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         BufferedReader reader = req.getReader();

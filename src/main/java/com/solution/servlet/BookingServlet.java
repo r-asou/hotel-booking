@@ -24,6 +24,13 @@ public class BookingServlet extends HttpServlet {
         this.bookingService = bookingService;
     }
 
+    /**
+     * 新增预订记录
+     *
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         BufferedReader reader = req.getReader();

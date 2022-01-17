@@ -16,6 +16,13 @@ import java.util.List;
  */
 public class RoomServlet extends HttpServlet {
 
+    /**
+     * 获取指定日期可预订的房间列表
+     *
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String date = req.getParameter("date");

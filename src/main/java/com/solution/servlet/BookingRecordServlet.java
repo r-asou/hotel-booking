@@ -23,6 +23,13 @@ public class BookingRecordServlet extends HttpServlet {
         this.bookingService = service;
     }
 
+    /**
+     * 查询指定客户的订房记录
+     *
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String name = req.getParameter("name");
